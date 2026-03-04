@@ -66,7 +66,7 @@ public class BallMovePlease : MonoBehaviour
         isDragging = false;
         
         rb.isKinematic = false;
-        rb.AddForce(lastDragVector.normalized * ballForce, ForceMode.Impulse);
+        rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
     }
     
     private void MovePlease()
