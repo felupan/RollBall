@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1608843223827240900, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Name
-      value: Cube (4)
+      value: Box (4)
       objectReference: {fileID: 0}
     - target: {fileID: 5815835122738728719, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Constraints
@@ -958,7 +958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1608843223827240900, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Name
-      value: Cube (1)
+      value: Box (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5815835122738728719, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Constraints
@@ -1035,7 +1035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1608843223827240900, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Name
-      value: Cube (3)
+      value: Box (3)
       objectReference: {fileID: 0}
     - target: {fileID: 5815835122738728719, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Constraints
@@ -1250,7 +1250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1608843223827240900, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Name
-      value: Cube (2)
+      value: Box (2)
       objectReference: {fileID: 0}
     - target: {fileID: 5815835122738728719, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Constraints
@@ -1327,7 +1327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1608843223827240900, guid: cfd14b4171e70ff4896844d660649e7a, type: 3}
       propertyPath: m_Name
-      value: Cube
+      value: Box
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
