@@ -67,4 +67,9 @@ public class BallMovePlease : MonoBehaviour
         rb.isKinematic = false;
         rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
     }
+
+    private void CheckFloor()
+    {
+        
+    }
 }
