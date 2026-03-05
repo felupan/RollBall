@@ -4,7 +4,6 @@ using UnityEngine;
 public class BallMovePlease : MonoBehaviour
 {
     [SerializeField] private float ballForce;
-    [SerializeField] private float jumpForce;
     [SerializeField] private Camera mainCamera;
     
     private Vector3 movement;
@@ -24,12 +23,12 @@ public class BallMovePlease : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Jump();
+        
     }
 
     private void FixedUpdate()
     {
-        //MovePlease();
+        
     }
 
     private void OnMouseDown()
@@ -67,20 +66,5 @@ public class BallMovePlease : MonoBehaviour
         
         rb.isKinematic = false;
         rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
-    }
-    
-    private void MovePlease()
-    {
-        moveH = Input.GetAxisRaw("Horizontal");
-        movement = new Vector3(moveH, 0, 0);
-        rb.AddForce(movement.normalized * ballForce, ForceMode.Acceleration);
-    }
-
-    private void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
     }
 }
