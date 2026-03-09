@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallMovePlease : MonoBehaviour
 {
@@ -61,12 +62,9 @@ public class BallMovePlease : MonoBehaviour
         if (dragPlane.Raycast(ray, out float distance))
         {
             Vector3 mouseWorldPos = ray.GetPoint(distance);
-    
-            // Solo usamos X e Y, mantenemos la Z original
-            Vector3 dragVector = mouseWorldPos - currentPosition;
-            dragVector.z = 0; // ignorar cualquier desviación en Z
             
-            Debug.Log($"mouseWorldPos: {mouseWorldPos}, dragVector: {dragVector}");
+            Vector3 dragVector = mouseWorldPos - currentPosition;
+            dragVector.z = 0;
             
             lastDragVector = dragVector;
         }
@@ -79,6 +77,8 @@ public class BallMovePlease : MonoBehaviour
         
         rb.isKinematic = false;
         rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
+        
+        GameManager.Instance.RegisterHit();
     }
 
     private void CheckGround()
@@ -87,7 +87,6 @@ public class BallMovePlease : MonoBehaviour
         {
             if (hitInfo.collider.CompareTag("Ground"))
             {
-                Debug.Log("I hit floor");
                 isGround = true;
             }
             else
@@ -104,7 +103,8 @@ public class BallMovePlease : MonoBehaviour
         {
             // If isOnBasket then we go to the next level + add points to the score
             isOnBasket = true;
-            Debug.Log("Next Level");
+            GameManager.Instance.CalculateLevelScore();
+            
         }
     }
 }
