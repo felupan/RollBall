@@ -113,3 +113,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d6cd4018d01cf42a04249f035fbfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinScript
+  rotationSpeed: 120

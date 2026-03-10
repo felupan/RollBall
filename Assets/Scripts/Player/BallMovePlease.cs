@@ -7,6 +7,7 @@ public class BallMovePlease : MonoBehaviour
     [SerializeField] private float ballForce;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float groundFriction;
+    [SerializeField] private float clickedFriction;
     
     private Vector3 movement;
     private Rigidbody rb;
@@ -31,6 +32,10 @@ public class BallMovePlease : MonoBehaviour
         {
             rb.linearDamping = groundFriction;
         }
+        else if (isDragging)
+        {
+            rb.linearDamping = clickedFriction;
+        }
         else rb.linearDamping = 0;
     }
 
@@ -48,7 +53,6 @@ public class BallMovePlease : MonoBehaviour
     private void OnMouseDown()
     {
         isDragging = true;
-        rb.isKinematic = true;
         currentPosition = transform.position;
     }
 
@@ -75,7 +79,6 @@ public class BallMovePlease : MonoBehaviour
         if (!isDragging) return;
         isDragging = false;
         
-        rb.isKinematic = false;
         rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
         
         GameManager.Instance.RegisterHit();
@@ -104,7 +107,6 @@ public class BallMovePlease : MonoBehaviour
             // If isOnBasket then we go to the next level + add points to the score
             isOnBasket = true;
             GameManager.Instance.CalculateLevelScore();
-            
         }
     }
 }

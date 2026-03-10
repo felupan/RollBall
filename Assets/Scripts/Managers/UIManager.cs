@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _coinText;
-    public TMP_Text CoinText
-    {
-        get => _coinText;
-        set => value = _coinText;
-    }
     
-    [SerializeField] private TMP_Text _hitsText;
-    public TMP_Text HitsText
-    {
-        get => _hitsText;
-        set => value = _hitsText;
-    }
+    [field: SerializeField] public TMP_Text HitsText { get; set; }
+    [field: SerializeField] public TMP_Text CoinText { get; set; }
+    [field: SerializeField] public TMP_Text CardText { get; set; }
+    [field: SerializeField] public TMP_Text ScoreText { get; set; }
 
     public static UIManager Instance { get; private set; }
 

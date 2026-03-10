@@ -37,21 +37,23 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         hitsLeft = MaxHits;
-        UIManager.Instance.HitsText.SetText($"Hits: {hitsLeft}");
-        UIManager.Instance.CoinText.SetText($"Coins: {coinsPickedOnLevel}");
+        UIManager.Instance.HitsText.SetText($"{hitsLeft}");
+        UIManager.Instance.CoinText.SetText($"{coinsPickedOnLevel}");
+        UIManager.Instance.CardText.SetText($"{CurrentCard}");
+        UIManager.Instance.ScoreText.SetText($"{levelScore}");
     }
 
     public void RegisterHit()
     {
         usedHitsOnLevel++;
         hitsLeft--;
-        UIManager.Instance.HitsText.SetText($"Hits: {hitsLeft}");
+        UIManager.Instance.HitsText.SetText($"{hitsLeft}");
     }
 
     public void RegisterCoin()
     {
         coinsPickedOnLevel++;
-        UIManager.Instance.CoinText.SetText($"Coins: {coinsPickedOnLevel}");
+        UIManager.Instance.CoinText.SetText($"{coinsPickedOnLevel}");
     }
 
     public void CalculateLevelScore()
@@ -78,8 +80,9 @@ public class GameManager : MonoBehaviour
                 break;
         }
         
-        levelScore = (coinsPickedOnLevel * coinMult) * (hitsLeft * hitsMult);
-        totalScore += levelScore * levelScoreMult;
+        levelScore = (coinsPickedOnLevel * coinMult) * (hitsLeft * hitsMult) * levelScoreMult;
+        totalScore += levelScore;
+        UIManager.Instance.ScoreText.SetText($"{levelScore}");
     }
 
     private void ResetLevel()
