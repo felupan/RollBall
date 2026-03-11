@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [field: SerializeField] public TMP_Text CoinText { get; set; }
     [field: SerializeField] public TMP_Text CardText { get; set; }
     [field: SerializeField] public TMP_Text ScoreText { get; set; }
+    [SerializeField] private GameObject summaryPanel;
 
     public static UIManager Instance { get; private set; }
 
@@ -20,5 +21,10 @@ public class UIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+    }
+
+    public void ShowSummary()
+    {
+        summaryPanel.SetActive(true);
     }
 }

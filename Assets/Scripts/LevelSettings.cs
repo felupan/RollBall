@@ -11,5 +11,6 @@ public class LevelSettings : MonoBehaviour
         GameManager.Instance.MaxHits = maxHits;
         GameManager.Instance.CurrentLevel = levelNumber;
         GameManager.Instance.CurrentCard = levelCard;
+        GameManager.Instance.InitializeLevel();
     }
 }

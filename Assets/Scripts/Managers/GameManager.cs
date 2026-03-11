@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public int usedHitsOnLevel { get; private set; }
     [field: SerializeField] public int coinsPickedOnLevel { get; private set; }
     
-    
     public int MaxHits { get; set; }
     public int CurrentLevel { get; set; }
     public TypeCard CurrentCard { get; set; }
@@ -35,6 +34,11 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
+    {
+        
+    }
+
+    public void InitializeLevel()
     {
         hitsLeft = MaxHits;
         UIManager.Instance.HitsText.SetText($"{hitsLeft}");
@@ -83,6 +87,8 @@ public class GameManager : MonoBehaviour
         levelScore = (coinsPickedOnLevel * coinMult) * (hitsLeft * hitsMult) * levelScoreMult;
         totalScore += levelScore;
         UIManager.Instance.ScoreText.SetText($"{levelScore}");
+        //UIManager.Instance.ShowSummary();
+        //ResetLevel();
     }
 
     private void ResetLevel()
