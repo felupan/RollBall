@@ -8,7 +8,6 @@ public enum TypeCard
     Efficiency,
     Balance
 }
-
 public class GameManager : MonoBehaviour
 {
     [field: SerializeField] public int levelScore { get; private set; }
