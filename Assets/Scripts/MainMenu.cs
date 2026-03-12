@@ -23,7 +23,13 @@ public class MainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        copyTitleText = titleText.text;   
+        copyTitleText = titleText.text;
+        titleText.SetText("");
+        titleBorder.enabled = false;
+        foreach (var button in buttons)
+        {
+            button.gameObject.SetActive(false);
+        }
         PlayIntroSequence();
     }
 
@@ -33,12 +39,21 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    IEnumerator PlayIntroSequence()
+    private void PlayIntroSequence()
+    {
+        StartCoroutine(PlayIntroCorrutine());
+    }
+    
+    IEnumerator PlayIntroCorrutine()
     {
         Color c = background.color;
-        c.a = 0f;
+        c.a = 1f;
         background.color = c;
         yield return background.DOFade(0.7f, 2f).WaitForCompletion();
+        yield return PlayTitleCoroutine();
+        titleBorder.enabled = true;
+        titleBorder.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 5, 0.5f);
+        yield return titleBorder.DOFade(1f, 0.2f).WaitForCompletion();
     }
 
     public void Play()
@@ -49,11 +64,6 @@ public class MainMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
-    }
-
-    void PlayTitle()
-    {
-        StartCoroutine(PlayTitleCoroutine());
     }
 
     IEnumerator PlayTitleCoroutine()
