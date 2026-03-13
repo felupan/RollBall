@@ -85,7 +85,7 @@ public class MainMenu : MonoBehaviour
         {
             currentTitleText += word + " ";
             titleText.SetText(currentTitleText);
-            AudioManager.Instance.PlaySfx(boomSound);
+            AudioManager.Instance.PlaySfx(boomSound, 0.4f);
             yield return new WaitForSeconds(0.3f);
         }
     }
