@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         totalScore += levelScore;
         UIManager.Instance.ScoreText.SetText($"{levelScore}");
         //UIManager.Instance.ShowSummary();
-        //ResetLevel();
+        ResetLevel();
     }
 
     private void ResetLevel()

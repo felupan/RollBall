@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 160790281}
   - component: {fileID: 160790280}
   - component: {fileID: 160790279}
+  - component: {fileID: 160790282}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -252,6 +253,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160790277}
   m_CullTransparentMesh: 1
+--- !u!114 &160790282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160790277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4e86b997f4c264da4a949013618f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Canvas.Main_Menu.ButtonHover
+  hoverEnterSound: {fileID: 8300000, guid: bcd07d333c399a8408b5cf1ae5d7e8db, type: 3}
+  hoverExitSound: {fileID: 0}
 --- !u!1 &366244808
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +279,7 @@ GameObject:
   - component: {fileID: 366244812}
   - component: {fileID: 366244811}
   - component: {fileID: 366244810}
+  - component: {fileID: 366244813}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -373,6 +389,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366244808}
   m_CullTransparentMesh: 1
+--- !u!114 &366244813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366244808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4e86b997f4c264da4a949013618f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Canvas.Main_Menu.ButtonHover
+  hoverEnterSound: {fileID: 8300000, guid: bcd07d333c399a8408b5cf1ae5d7e8db, type: 3}
+  hoverExitSound: {fileID: 0}
 --- !u!1 &397626460
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,7 +931,11 @@ MonoBehaviour:
   - {fileID: 160790279}
   - {fileID: 1216856149}
   - {fileID: 366244810}
-  typingSound: {fileID: 0}
+  boomSound: {fileID: 8300000, guid: bd7e5405ee831384fa463fa7bf3bfb0c, type: 3}
+  whipSound: {fileID: 8300000, guid: 19a6c974425a9234cbc1b50764c14408, type: 3}
+  buttonAppearSound: {fileID: 8300000, guid: db76c654e47201a40a56de1922c1cec7, type: 3}
+  menuMusic: {fileID: 8300000, guid: f7bf36529489b894ca6f165ee7f643dd, type: 3}
+  clickSound: {fileID: 8300000, guid: 467fd20fa2ba7c944a12865e2ec71939, type: 3}
 --- !u!1 &863814204
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1250,7 @@ GameObject:
   - component: {fileID: 1216856151}
   - component: {fileID: 1216856150}
   - component: {fileID: 1216856149}
+  - component: {fileID: 1216856152}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -1337,6 +1372,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216856147}
   m_CullTransparentMesh: 1
+--- !u!114 &1216856152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216856147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4e86b997f4c264da4a949013618f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Canvas.Main_Menu.ButtonHover
+  hoverEnterSound: {fileID: 8300000, guid: bcd07d333c399a8408b5cf1ae5d7e8db, type: 3}
+  hoverExitSound: {fileID: 0}
 --- !u!1 &1640013167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1752,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2131824905}
   m_CullTransparentMesh: 1
+--- !u!1001 &499887887434700953
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 969627203492740721, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: f7bf36529489b894ca6f165ee7f643dd, type: 3}
+    - target: {fileID: 2701855019739305298, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.62033
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.92433
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969779104891518843, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 940e8d35880732d43a73db8dbb6e9940, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1711,3 +1821,4 @@ SceneRoots:
   - {fileID: 454919360}
   - {fileID: 707324289}
   - {fileID: 1757088457}
+  - {fileID: 499887887434700953}
