@@ -12,7 +12,7 @@ namespace Canvas.Main_Menu
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            AudioManager.Instance.PlaySfx(hoverEnterSound);
+            AudioManager.Instance.PlaySfx(hoverEnterSound, 0.3f);
             transform.DOScale(1.1f,0.5f);
         }
 

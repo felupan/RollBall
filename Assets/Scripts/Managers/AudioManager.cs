@@ -27,15 +27,15 @@ namespace Managers
             sfxSource.PlayOneShot(clipToPlay);
         }
 
-        public void ChangeMusic(AudioClip music)
+        public void ChangeMusic(AudioClip music, float volume = 1f, float fadeOutDuration = 1f, float fadeInDuration = 3f)
         {
-            StartCoroutine(ChangeMusicCoroutine(music));
+            StartCoroutine(ChangeMusicCoroutine(music, volume, fadeOutDuration, fadeInDuration));
         }
 
-        IEnumerator ChangeMusicCoroutine(AudioClip music)
+        IEnumerator ChangeMusicCoroutine(AudioClip music, float volume, float fadeOutDuration, float fadeInDuration)
         {
             // Fade out de la música actual
-            yield return musicSource.DOFade(0f, 1f).WaitForCompletion();
+            yield return musicSource.DOFade(0f, fadeOutDuration).WaitForCompletion();
     
             // Cambiar el clip
             musicSource.Stop();
@@ -43,7 +43,7 @@ namespace Managers
             musicSource.Play();
     
             // Fade in de la nueva música
-            yield return musicSource.DOFade(0.7f, 3f).WaitForCompletion();
+            yield return musicSource.DOFade(volume, fadeInDuration).WaitForCompletion();
         }
     }
 }

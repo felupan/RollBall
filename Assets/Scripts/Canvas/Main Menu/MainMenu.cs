@@ -49,20 +49,20 @@ public class MainMenu : MonoBehaviour
         Color c = background.color;
         c.a = 1f;
         background.color = c;
-        yield return background.DOFade(0.7f, 1f).WaitForCompletion();
+        yield return background.DOFade(0.7f, 1f);
         yield return PlayTitleCoroutine();
         titleBorder.enabled = true;
-        AudioManager.Instance.PlaySfx(whipSound);
+        AudioManager.Instance.PlaySfx(whipSound, 0.4f);
         titleBorder.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 5, 0.5f);
         yield return new WaitForSeconds(1f);
         foreach (var button in buttons)
         {
             button.gameObject.SetActive(true);
-            AudioManager.Instance.PlaySfx(buttonAppearSound);
+            AudioManager.Instance.PlaySfx(buttonAppearSound, 0.4f);
             yield return button.transform.DOShakePosition(0.5f).WaitForCompletion();
         }
         //We play the Main Menu music
-        AudioManager.Instance.ChangeMusic(menuMusic);
+        AudioManager.Instance.ChangeMusic(menuMusic, 0.3f, 1f, 5f);
     }
 
     public void Play()
