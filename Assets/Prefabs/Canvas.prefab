@@ -723,6 +723,7 @@ MonoBehaviour:
   <CoinText>k__BackingField: {fileID: 6621234353718780329}
   <CardText>k__BackingField: {fileID: 4221134923796430158}
   <ScoreText>k__BackingField: {fileID: 7385289625166506882}
+  <gameInterface>k__BackingField: {fileID: 3260966955325360411}
   summaryPanel: {fileID: 1154535375004375199}
 --- !u!223 &781334258335021401
 Canvas:

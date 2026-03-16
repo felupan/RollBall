@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour
     public TypeCard CurrentCard { get; set; }
     
     private int hitsLeft;
+    [SerializeField] private Camera mainCamera;
+    private Quaternion cameraInitialRotation;
+    [SerializeField] private Quaternion cameraSummaryRotation;
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -34,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        cameraInitialRotation = mainCamera.transform.rotation;
     }
 
     public void InitializeLevel()
@@ -86,8 +90,7 @@ public class GameManager : MonoBehaviour
         levelScore = (coinsPickedOnLevel * coinMult) * (hitsLeft * hitsMult) * levelScoreMult;
         totalScore += levelScore;
         UIManager.Instance.ScoreText.SetText($"{levelScore}");
-        //UIManager.Instance.ShowSummary();
-        ResetLevel();
+        Summary();
     }
 
     private void ResetLevel()
@@ -96,5 +99,27 @@ public class GameManager : MonoBehaviour
         usedHitsOnLevel = 0;
         levelScore = 0;
         SceneManager.LoadScene("Level" + (CurrentLevel + 1));
+    }
+
+    private void Summary()
+    {
+        UIManager.Instance.gameInterface.SetActive(false);
+        StartCoroutine(RotateCamera(1.4f));
+    }
+
+    private IEnumerator RotateCamera(float duration)
+    {
+        UIManager.Instance.ShowSummary();
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            float tSmooth = Mathf.SmoothStep(0f, 1f, t); 
+            mainCamera.transform.rotation = Quaternion.Slerp(cameraInitialRotation, cameraSummaryRotation, tSmooth);
+            yield return null;
+        }
+        mainCamera.transform.rotation = cameraSummaryRotation;
     }
 }

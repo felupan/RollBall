@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f112901a6caf904a8ad10e1965b412f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  currentCard: 0
-  score: 0
-  usedHitsOnLevel: 0
-  coinsPickedOnLevel: 0
+  <levelScore>k__BackingField: 0
+  <totalScore>k__BackingField: 0
+  <usedHitsOnLevel>k__BackingField: 0
+  <coinsPickedOnLevel>k__BackingField: 0
+  mainCamera: {fileID: 0}
+  cameraSummaryRotation: {x: 0.6398399, y: 0, z: 0, w: 0.76850826}
