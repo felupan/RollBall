@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public int totalScore { get; private set; }
     [field: SerializeField] public int usedHitsOnLevel { get; private set; }
     [field: SerializeField] public int coinsPickedOnLevel { get; private set; }
+
+    [SerializeField] private AudioClip gameMusic;
     
     public int MaxHits { get; set; }
     public int CurrentLevel { get; set; }
@@ -39,6 +42,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         cameraInitialRotation = mainCamera.transform.rotation;
+        AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 0f, 2f);
     }
 
     public void InitializeLevel()

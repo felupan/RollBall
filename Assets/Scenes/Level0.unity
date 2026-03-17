@@ -2091,6 +2091,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1154535375004375199, guid: 366ade627d3db4f478588c3e75ad428b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1254085763554195596, guid: 366ade627d3db4f478588c3e75ad428b, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 400
@@ -2109,7 +2113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260966955325360411, guid: 366ade627d3db4f478588c3e75ad428b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3579146600630915064, guid: 366ade627d3db4f478588c3e75ad428b, type: 3}
       propertyPath: m_IsActive
@@ -2236,6 +2240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6072575730307993986, guid: 5cd1faa8c0384314190d28994e0bbb8b, type: 3}
+      propertyPath: gameMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
     - target: {fileID: 6072575730307993986, guid: 5cd1faa8c0384314190d28994e0bbb8b, type: 3}
       propertyPath: mainCamera
       value: 

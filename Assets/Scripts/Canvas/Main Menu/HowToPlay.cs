@@ -1,17 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using DG.Tweening;
 using Managers;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Canvas.Main_Menu
 {
     public class HowToPlay : MonoBehaviour
     {
         [SerializeField] private TMP_Text instructionsText;
+        [SerializeField] private TMP_Text howToPlayText;
+        [SerializeField] private GameObject level1;
+        [SerializeField] private Image fadeOut;
         [SerializeField] private AudioClip typingSound;
         
         private List<string> texts = new List<string>();
@@ -23,6 +29,7 @@ namespace Canvas.Main_Menu
 
         private void Awake()
         {
+            level1.SetActive(false);
             instructionsText.SetText("");
             text1 = "Score the ball into the basket to pass the level";
             text2 = "Each Level has 3 scenarios";
@@ -40,10 +47,10 @@ namespace Canvas.Main_Menu
         public void StartHowToPlay()
         {
             gameObject.SetActive(true);
-            StartCoroutine(HowToPlayCoroutine());
+            StartCoroutine(HowToPlayCoroutine(2f));
         }
 
-        IEnumerator HowToPlayCoroutine()
+        IEnumerator HowToPlayCoroutine(float duration)
         {
             foreach (string text in texts)
             {
@@ -59,8 +66,17 @@ namespace Canvas.Main_Menu
                 }
 
                 yield return new WaitForSeconds(2.5f);
-                // Clear instructionsText
-                instructionsText.SetText("");
+                // Last text on the list, fade out
+                if (texts.IndexOf(text) == texts.Count - 1)
+                {
+                    fadeOut.gameObject.SetActive(true);
+                    yield return fadeOut.DOFade(1f, duration).WaitForCompletion();
+                    level1.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(3f);
+                    SceneManager.LoadScene("Level0");
+                } // Clear instructionsText
+                else instructionsText.SetText("");
+                
             }
         }
     }
