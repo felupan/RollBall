@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Canvas.Main_Menu;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Image background;
     [SerializeField] private Image titleBorder;
     [SerializeField] private Button[] buttons;
+    
+    [SerializeField] private GameObject howToPlay;
+    [SerializeField] private GameObject mainMenu;
     
     [Header("Sounds")] 
     [SerializeField] private AudioClip boomSound;
@@ -62,13 +66,15 @@ public class MainMenu : MonoBehaviour
             yield return button.transform.DOShakePosition(0.5f).WaitForCompletion();
         }
         //We play the Main Menu music
-        AudioManager.Instance.ChangeMusic(menuMusic, 0.3f, 1f, 5f);
+        AudioManager.Instance.ChangeMusic(menuMusic, 0.3f, 0f, 5f);
     }
 
     public void Play()
     {
         AudioManager.Instance.PlaySfx(clickSound);
-        SceneManager.LoadScene("Level0");
+        mainMenu.SetActive(false);
+        howToPlay.GetComponent<HowToPlay>().StartHowToPlay();
+        //SceneManager.LoadScene("Level0");
     }
 
     public void Quit()

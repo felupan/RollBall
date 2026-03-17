@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.HitsText.SetText($"{hitsLeft}");
         UIManager.Instance.CoinText.SetText($"{coinsPickedOnLevel}");
         UIManager.Instance.CardText.SetText($"{CurrentCard}");
-        UIManager.Instance.ScoreText.SetText($"{levelScore}");
     }
 
     public void RegisterHit()
@@ -89,7 +88,6 @@ public class GameManager : MonoBehaviour
         
         levelScore = (coinsPickedOnLevel * coinMult) * (hitsLeft * hitsMult) * levelScoreMult;
         totalScore += levelScore;
-        UIManager.Instance.ScoreText.SetText($"{levelScore}");
         Summary();
     }
 

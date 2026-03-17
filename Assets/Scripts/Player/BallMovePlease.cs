@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,10 @@ public class BallMovePlease : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float groundFriction;
     [SerializeField] private float clickedFriction;
+    
+    [Header("Sounds")]
+    [SerializeField] private AudioClip coilSound;
+    [SerializeField] private AudioClip basketSound;
     
     private Vector3 movement;
     private Rigidbody rb;
@@ -80,7 +85,7 @@ public class BallMovePlease : MonoBehaviour
         isDragging = false;
         
         rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
-        
+        AudioManager.Instance.PlaySfx(coilSound,0.6f);
         GameManager.Instance.RegisterHit();
     }
 
@@ -106,6 +111,7 @@ public class BallMovePlease : MonoBehaviour
         {
             // If isOnBasket then we go to the next level + add points to the score
             isOnBasket = true;
+            AudioManager.Instance.PlaySfx(basketSound, 0.5f);
             GameManager.Instance.CalculateLevelScore();
         }
     }

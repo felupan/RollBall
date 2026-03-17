@@ -1,9 +1,11 @@
 using System;
+using Managers;
 using UnityEngine;
 
 public class CoinScript : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private AudioClip coinSound;
     
     private void Update()
     {
@@ -15,6 +17,7 @@ public class CoinScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.RegisterCoin();
+            AudioManager.Instance.PlaySfx(coinSound, 0.6f);
             Destroy(gameObject);
         }
     }

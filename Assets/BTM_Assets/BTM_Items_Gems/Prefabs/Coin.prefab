@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7545b41dcb5e9bc429013a8c2378c942, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.43
+      value: 3.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7545b41dcb5e9bc429013a8c2378c942, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.8
+      value: 2.55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7545b41dcb5e9bc429013a8c2378c942, type: 3}
       propertyPath: m_LocalPosition.z
@@ -114,3 +114,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinScript
   rotationSpeed: 120
+  coinSound: {fileID: 8300000, guid: fdf8f10baf3a94c48b552f1cfd39f4f4, type: 3}

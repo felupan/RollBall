@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5572865145311683980}
+  - component: {fileID: 8569868061558730020}
   - component: {fileID: 6965170456481941340}
   - component: {fileID: 8165449441187517346}
   - component: {fileID: 3993063320420259961}
-  - component: {fileID: 8569868061558730020}
   - component: {fileID: 3102975897496002667}
   - component: {fileID: 8142233116813300631}
   m_Layer: 0
@@ -37,6 +37,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8569868061558730020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072361294976339734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f07687caafad44bb369c19401b2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallMovePlease
+  ballForce: 1.5
+  mainCamera: {fileID: 0}
+  groundFriction: 3
+  clickedFriction: 20
+  coilSound: {fileID: 8300000, guid: 6a345c46cad44ec4ab60920ff31a9444, type: 3}
+  basketSound: {fileID: 8300000, guid: 861ea5daa79919646b96102f08413bed, type: 3}
 --- !u!33 &6965170456481941340
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -115,22 +133,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8569868061558730020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4072361294976339734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81f07687caafad44bb369c19401b2c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BallMovePlease
-  ballForce: 1.5
-  mainCamera: {fileID: 0}
-  groundFriction: 3
-  clickedFriction: 7
 --- !u!54 &3102975897496002667
 Rigidbody:
   m_ObjectHideFlags: 0
