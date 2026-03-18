@@ -26,17 +26,38 @@ namespace Canvas.Main_Menu
         private string text1;
         private string text2;
         private string text3;
+        private string text4;
+        private string text5;
+        private string text6;
+        private string text7;
+        private string text8;
+        private string text9;
+        private string text10;
 
         private void Awake()
         {
             level1.SetActive(false);
             instructionsText.SetText("");
-            text1 = "Score the ball into the basket to pass the level";
-            text2 = "Each Level has 3 scenarios";
-            text3 = "Complete the specified objective to win";
+            text1 = "Drag the ball to apply a force to it";
+            text2 = "Further you move your mouse, more power";
+            text3 = "Score the ball into the basket";
+            text4 = "Each LEVEL has 3 scenarios";
+            text5 = "Your score is determined multiplying HITS left times COINS";
+            text6 = "In each scenario you can get from 3 to 0 STARS";
+            text7 = "This are needed to pass the LEVEL";
+            text8 = "The higher your score, more STARS";
+            text9 = "You get to chose a Potential Card (PC), it will BONUS your stats";
+            text10 = "Get the specified STARS to pass the LEVEL";
             texts.Add(text1);
             texts.Add(text2);
             texts.Add(text3);
+            texts.Add(text4);
+            texts.Add(text5);
+            texts.Add(text6);
+            texts.Add(text7);
+            texts.Add(text8);
+            texts.Add(text9);
+            texts.Add(text10);
         }
 
         private void Start()

@@ -21,9 +21,10 @@ namespace Managers
             else Destroy(gameObject);
         }
         
-        public void PlaySfx(AudioClip clipToPlay, float volume = 1f)
+        public void PlaySfx(AudioClip clipToPlay, float volume = 1f, float pitch = 1f)
         {
             sfxSource.volume = volume;
+            sfxSource.pitch = pitch;
             sfxSource.PlayOneShot(clipToPlay);
         }
 

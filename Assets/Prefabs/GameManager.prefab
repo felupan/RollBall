@@ -48,5 +48,6 @@ MonoBehaviour:
   <totalScore>k__BackingField: 0
   <usedHitsOnLevel>k__BackingField: 0
   <coinsPickedOnLevel>k__BackingField: 0
+  gameMusic: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
   mainCamera: {fileID: 0}
   cameraSummaryRotation: {x: 0.6398399, y: 0, z: 0, w: 0.76850826}
