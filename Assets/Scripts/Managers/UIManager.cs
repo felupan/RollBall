@@ -109,8 +109,14 @@ public class UIManager : MonoBehaviour
             {
                 AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
                 yield return item.text.transform.DOPunchPosition(Vector3.up, 0.5f, 30, 3f).WaitForCompletion();
-                yield return StartCoroutine(ScoreEffects(item.text, item.value, 0.1f));
-                //yield return StartCoroutine(ScoreEffects2(item.text, item.value, 1.5f));
+                if (item.value <= 20)
+                {
+                    yield return StartCoroutine(ScoreEffects(item.text, item.value, 0.1f));
+                }
+                else
+                {
+                    yield return StartCoroutine(ScoreEffects2(item.text, item.value, 2f));
+                }
             }
             else
             {
@@ -216,20 +222,22 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration)
     {
-        float stepTime = Mathf.Max(duration / number, Time.deltaTime);
-        float startTime = Time.time;
-        
-        AudioManager.Instance.PlaySfxLoop(scoreSound);
-        
-        for (int i = 1; i <= number; i++)
+        float elapsed = 0f;
+    
+        while (elapsed < duration)
         {
-            text.SetText($"{i}");
-            float timeProgress = (Time.time - startTime) / duration;
-            AudioManager.Instance.SetSfxPitch(Mathf.Min(1f + timeProgress * 0.5f, 2f));
-            yield return new WaitForSeconds(stepTime);
+            elapsed += Time.deltaTime;
+            float progress = elapsed / duration;
+            int currentNumber = Mathf.RoundToInt(Mathf.Lerp(0, number, progress));
+            text.SetText($"{currentNumber}");
+            float pitch = Mathf.Min(1f + progress * 0.3f, 2f);
+            AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
+            yield return null;
         }
-        
-        AudioManager.Instance.StopSfxLoop();
-        AudioManager.Instance.SetSfxPitch();
+    
+        text.SetText($"{number}");
+        text.transform.DOPunchPosition(Vector3.up, 1f, 40, 3f);
+        // AudioManager.Instance.StopSfxLoop();
+        // AudioManager.Instance.SetSfxPitch(1f);
     }
 }

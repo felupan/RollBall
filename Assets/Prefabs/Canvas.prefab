@@ -1401,7 +1401,7 @@ MonoBehaviour:
   summaryHitsText: {fileID: 4208295348000650400}
   summaryCoinText: {fileID: 3306737903373180117}
   summaryScoreText: {fileID: 584944183118899435}
-  scoreSound: {fileID: 8300000, guid: 29fed6087b9b470419fe36bf7e5c5f43, type: 3}
+  scoreSound: {fileID: 8300000, guid: 83ddf923c494e9846a156b318a4eec99, type: 3}
   textAppearSound: {fileID: 8300000, guid: cd4b681bc035da34c9202f332cbfd1ef, type: 3}
   starSound: {fileID: 8300000, guid: 57b38d839c058c648b2163f8fb43fb82, type: 3}
   noStarSound: {fileID: 8300000, guid: 86aee610f71db3d448f02a38d20a4a58, type: 3}

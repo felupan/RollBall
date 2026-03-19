@@ -3152,6 +3152,10 @@ PrefabInstance:
       propertyPath: totalCoins
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7532190008066092630, guid: e627c88e17e12314f87fc73bce21a5af, type: 3}
+      propertyPath: usedHitsToPass
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
