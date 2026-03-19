@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         yield return ShowValueTexts(true);
         
         nextButton.gameObject.SetActive(true);
-        AudioManager.Instance.PlaySfx(textAppearSound, 0.4f);
+        AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
         yield return nextButton.transform.DOPunchPosition(Vector3.up, 0.5f, 20, 3f).WaitForCompletion();
     }
 
@@ -72,8 +72,8 @@ public class UIManager : MonoBehaviour
             text.gameObject.SetActive(state);
             if (state)
             {
-                AudioManager.Instance.PlaySfx(textAppearSound, 0.4f);
-                yield return text.DOPunchPosition(Vector3.up, 0.5f, 20, 3f).WaitForCompletion();
+                AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
+                yield return text.DOPunchPosition(Vector3.up, 0.5f, 30, 3f).WaitForCompletion();
             }
         }
     }
@@ -92,9 +92,10 @@ public class UIManager : MonoBehaviour
             item.text.gameObject.SetActive(state);
             if (state)
             {
-                AudioManager.Instance.PlaySfx(textAppearSound, 0.4f);
-                yield return item.text.transform.DOPunchPosition(Vector3.up, 0.5f, 20, 3f).WaitForCompletion();
+                AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
+                yield return item.text.transform.DOPunchPosition(Vector3.up, 0.5f, 30, 3f).WaitForCompletion();
                 yield return StartCoroutine(ScoreEffects(item.text, item.value, 0.1f));
+                //yield return StartCoroutine(ScoreEffects2(item.text, item.value, 1.5f));
             }
             else
             {
@@ -124,22 +125,65 @@ public class UIManager : MonoBehaviour
     {
         // Hide UI and CLEAR text values data
         GameManager.Instance.ResetLevel();
-        yield return ShowTexts(textsGroup.transform, false);
-        yield return ShowValueTexts(false);
-        nextButton.gameObject.SetActive(false);
+        yield return HideSummary();
 
-        yield return Fade(1.4f, 2);
+        yield return Fade(1.3f, 2);
         summaryBackground.SetActive(false);
         gameInterface.SetActive(true);
+    }
+
+    private IEnumerator HideSummary()
+    {
+        yield return ShowValueTexts(false);
+        yield return ShowTexts(textsGroup.transform, false);
+        nextButton.gameObject.SetActive(false);
     }
     
     private IEnumerator ScoreEffects(TMP_Text text, int number, float speed)
     {
+        float startTime = Time.time;
+        
         for (int i = 1; i <= number; i++)
         {
             text.SetText($"{i}");
-            AudioManager.Instance.PlaySfx(scoreSound, 0.5f, 1f + (i/15f));
-            yield return new WaitForSeconds(speed);
+            
+            // 1. Depends on time elapsed
+            float elapsed = Time.time - startTime; 
+            float currentSpeed = Mathf.Max(speed * (1f - elapsed * 0.1f), 0.05f);
+            float pitch = Mathf.Min(1f + elapsed * 0.1f, 2f);
+            if (currentSpeed <= 0.05f)
+            {
+                text.SetText($"{number}");
+                text.transform.DOPunchPosition(Vector3.up, 1f, 40, 3f);
+                yield break;
+            }
+            
+            // 2. Depends on how big the number is
+            // float progress = (float)i / number;
+            // float currentSpeed = speed * (1f - progress * 0.4f);
+            // float pitch = 1f + progress * 0.5f;
+           
+            AudioManager.Instance.PlaySfx(scoreSound, 0.5f, pitch);
+            yield return new WaitForSeconds(currentSpeed);
         }
+    }
+
+    private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration)
+    {
+        float stepTime = Mathf.Max(duration / number, Time.deltaTime);
+        float startTime = Time.time;
+        
+        AudioManager.Instance.PlaySfxLoop(scoreSound);
+        
+        for (int i = 1; i <= number; i++)
+        {
+            text.SetText($"{i}");
+            float timeProgress = (Time.time - startTime) / duration;
+            AudioManager.Instance.SetSfxPitch(Mathf.Min(1f + timeProgress * 0.5f, 2f));
+            yield return new WaitForSeconds(stepTime);
+        }
+        
+        AudioManager.Instance.StopSfxLoop();
+        AudioManager.Instance.SetSfxPitch();
     }
 }

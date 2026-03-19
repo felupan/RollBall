@@ -28,6 +28,7 @@ public class BallMovePlease : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         currentPosition = transform.position;
+        isOnBasket = false;
     }
 
     // Update is called once per frame
@@ -107,7 +108,7 @@ public class BallMovePlease : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Basket"))
+        if (other.CompareTag("Basket") && !isOnBasket)
         {
             // If isOnBasket then we go to the next level + add points to the score
             isOnBasket = true;

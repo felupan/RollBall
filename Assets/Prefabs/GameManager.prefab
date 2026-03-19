@@ -44,10 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f112901a6caf904a8ad10e1965b412f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  <levelScore>k__BackingField: 0
-  <totalScore>k__BackingField: 0
-  <usedHitsOnLevel>k__BackingField: 0
-  <coinsPickedOnLevel>k__BackingField: 0
+  <LevelScore>k__BackingField: 0
+  <TotalScore>k__BackingField: 0
+  <UsedHitsOnLevel>k__BackingField: 0
+  <CoinsPickedOnLevel>k__BackingField: 0
   gameMusic: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
-  mainCamera: {fileID: 0}
+  <Levels>k__BackingField:
+  - {fileID: 11400000, guid: 3cc5e941d9519144581a32486e739972, type: 2}
+  - {fileID: 11400000, guid: 0a29a71ede1670d4f8d8cf6b4299d19e, type: 2}
+  currentLevelIndex: 0
+  currentScenarioIndex: 0
+  <MainCamera>k__BackingField: {fileID: 0}
   cameraSummaryRotation: {x: 0.6398399, y: 0, z: 0, w: 0.76850826}

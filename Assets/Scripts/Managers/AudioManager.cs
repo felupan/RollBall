@@ -21,11 +21,30 @@ namespace Managers
             else Destroy(gameObject);
         }
         
-        public void PlaySfx(AudioClip clipToPlay, float volume = 1f, float pitch = 1f)
+        public void PlaySfx(AudioClip clip, float volume = 1f, float pitch = 1f)
         {
             sfxSource.volume = volume;
             sfxSource.pitch = pitch;
-            sfxSource.PlayOneShot(clipToPlay);
+            sfxSource.PlayOneShot(clip);
+        }
+
+        public void PlaySfxLoop(AudioClip clip, float volume = 1f)
+        {
+            sfxSource.clip = clip;
+            sfxSource.loop = true;
+            sfxSource.volume = volume;
+            sfxSource.Play();
+        }
+
+        public void StopSfxLoop()
+        {
+            sfxSource.loop = false;
+            sfxSource.Stop();
+        }
+
+        public void SetSfxPitch(float pitch = 1f)
+        {
+            sfxSource.pitch = pitch;
         }
 
         public void ChangeMusic(AudioClip music, float volume = 1f, float fadeOutDuration = 1f, float fadeInDuration = 3f)

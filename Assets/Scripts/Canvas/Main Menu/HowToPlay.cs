@@ -46,7 +46,7 @@ namespace Canvas.Main_Menu
             text6 = "In each scenario you can get from 3 to 0 STARS";
             text7 = "This are needed to pass the LEVEL";
             text8 = "The higher your score, more STARS";
-            text9 = "You get to chose a Potential Card (PC), it will BONUS your stats";
+            text9 = "You get to chose a Potential Card that will BONUS your stats";
             text10 = "Get the specified STARS to pass the LEVEL";
             texts.Add(text1);
             texts.Add(text2);
@@ -92,12 +92,9 @@ namespace Canvas.Main_Menu
                 {
                     fadeOut.gameObject.SetActive(true);
                     yield return fadeOut.DOFade(1f, duration).WaitForCompletion();
-                    level1.gameObject.SetActive(true);
-                    yield return new WaitForSeconds(3f);
-                    SceneManager.LoadScene("Level0");
+                    SceneManager.LoadScene("LevelTemplate");
                 } // Clear instructionsText
                 else instructionsText.SetText("");
-                
             }
         }
     }

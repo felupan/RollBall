@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public int CoinsPickedOnLevel { get; private set; }
 
     [SerializeField] private AudioClip gameMusic;
+
+    [field: SerializeField] public  List<LevelData> Levels { get; private set; }
+    [field: SerializeField] public int CurrentLevelIndex { get; private set; }
+    [SerializeField] private int currentScenarioIndex;
     
     public int MaxHits { get; set; }
     public int HitsLeft { get; private set; }
@@ -28,6 +33,10 @@ public class GameManager : MonoBehaviour
     
     private Quaternion cameraInitialRotation;
     [SerializeField] private Quaternion cameraSummaryRotation;
+    
+    [Header("Debug Settings")]
+    [SerializeField] private int debugStartLevel;
+    
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -35,6 +44,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            CurrentLevelIndex = debugStartLevel;
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
@@ -42,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 0f, 2f);
+        AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 4f, 2f);
     }
 
     public void InitializeLevel()
@@ -102,7 +112,18 @@ public class GameManager : MonoBehaviour
         CoinsPickedOnLevel = 0;
         UsedHitsOnLevel = 0;
         LevelScore = 0;
-        SceneManager.LoadScene("Level" + (CurrentLevel + 1));
+        currentScenarioIndex++;
+        if (currentScenarioIndex >= Levels[CurrentLevelIndex].scenes.Length)
+        {
+            currentScenarioIndex = 0;
+            CurrentLevelIndex++;
+            SceneManager.LoadScene("LevelTemplate");
+            // Check stars. Change level or Lose
+        }
+        else
+        {
+            SceneManager.LoadScene(Levels[CurrentLevelIndex].scenes[currentScenarioIndex]);
+        }
         EndSummary();
     }
 
