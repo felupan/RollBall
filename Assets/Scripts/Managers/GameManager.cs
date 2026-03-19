@@ -15,19 +15,20 @@ public enum TypeCard
 public class GameManager : MonoBehaviour
 {
     [field: SerializeField] public int LevelScore { get; private set; }
-    [field: SerializeField] public int TotalScore { get; private set; }
+    [field: SerializeField] public int Stars { get; private set; }
     [field: SerializeField] public int UsedHitsOnLevel { get; private set; }
     [field: SerializeField] public int CoinsPickedOnLevel { get; private set; }
-
-    [SerializeField] private AudioClip gameMusic;
-
+    [field: SerializeField] public int TotalStars { get; private set; }
+    [field: SerializeField] public int RequiredStars { get; private set; }
+    [field: SerializeField] public int UsedHitsToPass { get; set; }
+    [field: SerializeField] public int TotalCoins { get; set; }
     [field: SerializeField] public  List<LevelData> Levels { get; private set; }
     [field: SerializeField] public int CurrentLevelIndex { get; private set; }
     [SerializeField] private int currentScenarioIndex;
+    [SerializeField] private AudioClip gameMusic;
     
     public int MaxHits { get; set; }
     public int HitsLeft { get; private set; }
-    public int CurrentLevel { get; set; }
     public TypeCard CurrentCard { get; set; }
     [field: SerializeField] public Camera MainCamera { get; set; }
     
@@ -52,13 +53,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 4f, 2f);
+        if (!AudioManager.Instance.IsPlayingMusic())
+        {
+            AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 0f, 3f);
+        }
     }
 
     public void InitializeLevel()
     {
         HitsLeft = MaxHits;
         cameraInitialRotation = MainCamera.transform.rotation;
+        RequiredStars = Levels[CurrentLevelIndex].requiredStars;
         UIManager.Instance.HitsText.SetText($"{HitsLeft}");
         UIManager.Instance.CoinText.SetText($"{CoinsPickedOnLevel}");
         UIManager.Instance.CardText.SetText($"{CurrentCard}");
@@ -102,7 +107,15 @@ public class GameManager : MonoBehaviour
         }
         
         LevelScore = (CoinsPickedOnLevel * coinMult) * (HitsLeft * hitsMult) * levelScoreMult;
-        TotalScore += LevelScore;
+        // Calculate Stars
+        int maxScore = (TotalCoins * coinMult) * ((MaxHits - UsedHitsToPass) * hitsMult) * levelScoreMult;
+        Debug.Log($"MaxScore: {maxScore}");
+        if (LevelScore >= maxScore * 0.8f) Stars = 3;
+        else if (LevelScore >= maxScore * 0.5f) Stars = 2;
+        else if (LevelScore >= maxScore * 0.3f) Stars = 1;
+        else Stars = 0;
+        TotalStars += Stars;
+        
         Summary();
     }
 
@@ -112,13 +125,18 @@ public class GameManager : MonoBehaviour
         CoinsPickedOnLevel = 0;
         UsedHitsOnLevel = 0;
         LevelScore = 0;
+        Stars = 0;
         currentScenarioIndex++;
         if (currentScenarioIndex >= Levels[CurrentLevelIndex].scenes.Length)
         {
             currentScenarioIndex = 0;
             CurrentLevelIndex++;
-            SceneManager.LoadScene("LevelTemplate");
             // Check stars. Change level or Lose
+            if (TotalStars >= RequiredStars)
+            {
+                SceneManager.LoadScene("LevelTemplate");
+            }
+            else Debug.Log("You lost!");
         }
         else
         {

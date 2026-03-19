@@ -16,7 +16,6 @@ namespace Canvas.Main_Menu
     {
         [SerializeField] private TMP_Text instructionsText;
         [SerializeField] private TMP_Text howToPlayText;
-        [SerializeField] private GameObject level1;
         [SerializeField] private Image fadeOut;
         [SerializeField] private AudioClip typingSound;
         
@@ -36,7 +35,6 @@ namespace Canvas.Main_Menu
 
         private void Awake()
         {
-            level1.SetActive(false);
             instructionsText.SetText("");
             text1 = "Drag the ball to apply a force to it";
             text2 = "Further you move your mouse, more power";
@@ -70,6 +68,12 @@ namespace Canvas.Main_Menu
             gameObject.SetActive(true);
             StartCoroutine(HowToPlayCoroutine(2f));
         }
+        public void SkipTutorial()
+        {
+            StopCoroutine(HowToPlayCoroutine(2f));
+            StartCoroutine(FadeOutCoroutine(2f));
+            SceneManager.LoadScene("LevelTemplate");
+        }
 
         IEnumerator HowToPlayCoroutine(float duration)
         {
@@ -90,12 +94,17 @@ namespace Canvas.Main_Menu
                 // Last text on the list, fade out
                 if (texts.IndexOf(text) == texts.Count - 1)
                 {
-                    fadeOut.gameObject.SetActive(true);
-                    yield return fadeOut.DOFade(1f, duration).WaitForCompletion();
+                    yield return FadeOutCoroutine(duration);
                     SceneManager.LoadScene("LevelTemplate");
                 } // Clear instructionsText
                 else instructionsText.SetText("");
             }
+        }
+
+        private IEnumerator FadeOutCoroutine(float duration)
+        {
+            fadeOut.gameObject.SetActive(true);
+            yield return fadeOut.DOFade(1f, duration).WaitForCompletion();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ namespace Canvas
     {
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text objectiveText;
+        [SerializeField] private AudioClip gameMusic;
         private LevelData currentLevel;
         private int indexLevel;
         private int stars;
@@ -25,6 +27,7 @@ namespace Canvas
         private IEnumerator ShowLevel()
         {
             yield return new WaitForSeconds(4f);
+            AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 0f, 3f);
             SceneManager.LoadScene(currentLevel.scenes[0]);
         }
     }

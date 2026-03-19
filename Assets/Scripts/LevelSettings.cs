@@ -3,7 +3,8 @@ using UnityEngine;
 public class LevelSettings : MonoBehaviour
 {
     [SerializeField] private int maxHits;
-    [SerializeField] private int levelNumber;
+    [SerializeField] private int totalCoins;
+    [SerializeField] private int usedHitsToPass;
     [SerializeField] private TypeCard levelCard;
 
     [SerializeField] private Camera mainCamera;
@@ -11,9 +12,10 @@ public class LevelSettings : MonoBehaviour
     void Start()
     {
         GameManager.Instance.MaxHits = maxHits;
-        GameManager.Instance.CurrentLevel = levelNumber;
+        GameManager.Instance.TotalCoins = totalCoins;
         GameManager.Instance.CurrentCard = levelCard;
         GameManager.Instance.MainCamera = mainCamera;
+        GameManager.Instance.UsedHitsToPass = usedHitsToPass;
         GameManager.Instance.InitializeLevel();
     }
 }

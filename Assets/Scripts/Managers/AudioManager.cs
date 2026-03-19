@@ -20,6 +20,12 @@ namespace Managers
             }
             else Destroy(gameObject);
         }
+
+        public bool IsPlayingMusic()
+        {
+            if (musicSource.clip == null) return false;
+            else return true;
+        }
         
         public void PlaySfx(AudioClip clip, float volume = 1f, float pitch = 1f)
         {

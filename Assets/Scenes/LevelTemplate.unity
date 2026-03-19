@@ -1037,6 +1037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   levelText: {fileID: 749599683}
   objectiveText: {fileID: 1084191195}
+  gameMusic: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Managers;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -17,6 +18,9 @@ public class UIManager : MonoBehaviour
     [field: SerializeField] public GameObject gameInterface { get; set; }
     [SerializeField] private GameObject summaryPanel;
     [SerializeField] private GameObject textsGroup;
+    [SerializeField] private RawImage[] starsGroup;
+    [SerializeField] private TMP_Text starCounterText;
+    [SerializeField] private TMP_Text starText;
     [SerializeField] private Button nextButton;
     [SerializeField] private TMP_Text summaryHitsText;
     [SerializeField] private TMP_Text summaryCoinText;
@@ -24,6 +28,8 @@ public class UIManager : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip scoreSound;
     [SerializeField] private AudioClip textAppearSound;
+    [SerializeField] private AudioClip starSound;
+    [SerializeField] private AudioClip noStarSound;
     
     private GameObject summaryBackground;
     public static UIManager Instance { get; private set; }
@@ -59,6 +65,15 @@ public class UIManager : MonoBehaviour
 
         yield return ShowTexts(textsGroup.transform, true);
         yield return ShowValueTexts(true);
+        starText.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
+        yield return starText.transform.DOPunchPosition(Vector3.up, 0.5f, 20, 3f).WaitForCompletion();
+        yield return ShowStars(true);
+        
+        starCounterText.gameObject.SetActive(true);
+        starCounterText.SetText($"{GameManager.Instance.TotalStars}/{GameManager.Instance.RequiredStars}");
+        yield return starCounterText.transform.DOPunchPosition(Vector3.up, 0.5f, 20, 3f).WaitForCompletion();
+        AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
         
         nextButton.gameObject.SetActive(true);
         AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
@@ -103,6 +118,34 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator ShowStars(bool state)
+    {
+        if (!state)
+        {
+            foreach (var star in starsGroup)
+            {
+                star.gameObject.SetActive(false);
+            }
+            yield break;
+        }
+        Debug.Log($"STARS: {GameManager.Instance.Stars}");
+        for(int i = 0; i < starsGroup.Length; i++)
+        {
+            starsGroup[i].gameObject.SetActive(true);
+            if (i < GameManager.Instance.Stars)
+            {
+                starsGroup[i].color = Color.white;
+                AudioManager.Instance.PlaySfx(starSound, 0.5f);
+            }
+            else
+            {
+                starsGroup[i].color = Color.black;
+                AudioManager.Instance.PlaySfx(noStarSound, 0.5f);
+            }
+            yield return starsGroup[i].transform.DOPunchScale(Vector3.one * 0.3f, 0.8f, 20, 3f).WaitForCompletion();
+        }
+    }
     
     private IEnumerator Fade(float duration, int fadeType)
     {
@@ -124,8 +167,8 @@ public class UIManager : MonoBehaviour
     private IEnumerator NextLevel()
     {
         // Hide UI and CLEAR text values data
-        GameManager.Instance.ResetLevel();
         yield return HideSummary();
+        GameManager.Instance.ResetLevel();
 
         yield return Fade(1.3f, 2);
         summaryBackground.SetActive(false);
@@ -136,6 +179,9 @@ public class UIManager : MonoBehaviour
     {
         yield return ShowValueTexts(false);
         yield return ShowTexts(textsGroup.transform, false);
+        starText.gameObject.SetActive(false);
+        starCounterText.gameObject.SetActive(false);
+        yield return ShowStars(false);
         nextButton.gameObject.SetActive(false);
     }
     
