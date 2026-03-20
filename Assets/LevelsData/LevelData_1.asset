@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: LevelData_1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: LEVEL 1
+  levelIndex: 0
   requiredStars: 5
   scenes:
   - L1S1
   - L1S2
   - L1S3
+  levelMusic: {fileID: 8300000, guid: f7bf36529489b894ca6f165ee7f643dd, type: 3}

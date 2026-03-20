@@ -12,22 +12,23 @@ namespace Canvas
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text objectiveText;
         [SerializeField] private AudioClip gameMusic;
+        [SerializeField] private AudioClip levelAppearSound;
         private LevelData currentLevel;
         private int indexLevel;
-        private int stars;
 
         private void Start()
         {
+            indexLevel = GameManager.Instance.CurrentLevelIndex;
             currentLevel = GameManager.Instance.Levels[indexLevel];
             levelText.SetText(currentLevel.levelName);
             objectiveText.SetText($"Objective: GET {currentLevel.requiredStars} STARS");
+            AudioManager.Instance.PlaySfx(levelAppearSound, 0.5f);
             StartCoroutine(ShowLevel());
         }
 
         private IEnumerator ShowLevel()
         {
             yield return new WaitForSeconds(4f);
-            AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 0f, 3f);
             SceneManager.LoadScene(currentLevel.scenes[0]);
         }
     }

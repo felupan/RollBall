@@ -45,14 +45,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   <LevelScore>k__BackingField: 0
-  <TotalScore>k__BackingField: 0
+  <Stars>k__BackingField: 0
   <UsedHitsOnLevel>k__BackingField: 0
   <CoinsPickedOnLevel>k__BackingField: 0
-  gameMusic: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
+  <TotalStarsOnLevel>k__BackingField: 0
+  <TotalStars>k__BackingField: 0
+  <RequiredStars>k__BackingField: 0
+  <UsedHitsToPass>k__BackingField: 0
+  <TotalCoins>k__BackingField: 0
   <Levels>k__BackingField:
   - {fileID: 11400000, guid: 3cc5e941d9519144581a32486e739972, type: 2}
   - {fileID: 11400000, guid: 0a29a71ede1670d4f8d8cf6b4299d19e, type: 2}
-  currentLevelIndex: 0
+  <CurrentLevelIndex>k__BackingField: 0
   currentScenarioIndex: 0
+  gameMusic: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
   <MainCamera>k__BackingField: {fileID: 0}
   cameraSummaryRotation: {x: 0.6398399, y: 0, z: 0, w: 0.76850826}
+  debugStartLevel: 0
+  debugStartScene: 0
+  debugStartStars: 0

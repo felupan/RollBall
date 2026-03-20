@@ -8,4 +8,5 @@ public class LevelData : ScriptableObject
     public int levelIndex;
     public int requiredStars;
     public string[] scenes;
+    public AudioClip levelMusic;
 }

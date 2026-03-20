@@ -40,7 +40,7 @@ namespace Canvas.Main_Menu
             text2 = "Further you move your mouse, more power";
             text3 = "Score the ball into the basket";
             text4 = "Each LEVEL has 3 scenarios";
-            text5 = "Your score is determined multiplying HITS left times COINS";
+            text5 = "Your score is determined multiplying HITS LEFT by COINS";
             text6 = "In each scenario you can get from 3 to 0 STARS";
             text7 = "This are needed to pass the LEVEL";
             text8 = "The higher your score, more STARS";

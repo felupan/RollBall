@@ -59,6 +59,11 @@ public class UIManager : MonoBehaviour
         StartCoroutine(NextLevel());
     }
 
+    public void ScoreEffect(TMP_Text text, int number, float speed)
+    {
+        StartCoroutine(ScoreEffects(text, number, speed));
+    }
+
     private IEnumerator SummaryCorutine()
     {
         yield return Fade(2f, 1);
@@ -71,7 +76,7 @@ public class UIManager : MonoBehaviour
         yield return ShowStars(true);
         
         starCounterText.gameObject.SetActive(true);
-        starCounterText.SetText($"{GameManager.Instance.TotalStars}/{GameManager.Instance.RequiredStars}");
+        starCounterText.SetText($"{GameManager.Instance.TotalStarsOnLevel}/{GameManager.Instance.RequiredStars}");
         yield return starCounterText.transform.DOPunchPosition(Vector3.up, 0.5f, 20, 3f).WaitForCompletion();
         AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
         
@@ -109,7 +114,7 @@ public class UIManager : MonoBehaviour
             {
                 AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
                 yield return item.text.transform.DOPunchPosition(Vector3.up, 0.5f, 30, 3f).WaitForCompletion();
-                if (item.value <= 20)
+                if (item.value <= 40)
                 {
                     yield return StartCoroutine(ScoreEffects(item.text, item.value, 0.1f));
                 }
@@ -223,6 +228,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration)
     {
         float elapsed = 0f;
+        float counter = 0;
     
         while (elapsed < duration)
         {
@@ -231,13 +237,13 @@ public class UIManager : MonoBehaviour
             int currentNumber = Mathf.RoundToInt(Mathf.Lerp(0, number, progress));
             text.SetText($"{currentNumber}");
             float pitch = Mathf.Min(1f + progress * 0.3f, 2f);
-            AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
+            if (counter % 3 == 0) AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
+            counter++;
             yield return null;
         }
     
         text.SetText($"{number}");
-        text.transform.DOPunchPosition(Vector3.up, 1f, 40, 3f);
-        // AudioManager.Instance.StopSfxLoop();
-        // AudioManager.Instance.SetSfxPitch(1f);
+        AudioManager.Instance.PlaySfx(scoreSound,0.4f);
+        yield return text.transform.DOPunchPosition(Vector3.up, 1f, 40, 3f).WaitForCompletion();
     }
 }
