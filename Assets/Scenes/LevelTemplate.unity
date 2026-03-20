@@ -1038,7 +1038,7 @@ MonoBehaviour:
   levelText: {fileID: 749599683}
   objectiveText: {fileID: 1084191195}
   gameMusic: {fileID: 8300000, guid: 0ac20c066b6191242a7b6c96db6c924b, type: 3}
-  levelAppearSound: {fileID: 8300000, guid: cd4b681bc035da34c9202f332cbfd1ef, type: 3}
+  levelAppearSound: {fileID: 8300000, guid: 68e95782eef745949b83c4371eb8adb0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

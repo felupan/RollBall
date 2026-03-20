@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gameMusic = Levels[CurrentLevelIndex].levelMusic; 
-        if (!AudioManager.Instance.IsPlayingMusic())
+        if (!AudioManager.Instance.IsPlayingMusic() && SceneManager.GetActiveScene() == SceneManager.GetSceneByName(Levels[CurrentLevelIndex].scenes[currentScenarioIndex]))
         {
             AudioManager.Instance.ChangeMusic(gameMusic, 0.4f, 0f, 3f);
         }
@@ -153,6 +153,7 @@ public class GameManager : MonoBehaviour
             // Check stars. Change level or Lose
             if (TotalStarsOnLevel >= RequiredStars)
             {
+                AudioManager.Instance.ChangeMusic(null,1f,0,0);
                 SceneManager.LoadScene("LevelPassed");
             }
             else Debug.Log("You lost!");

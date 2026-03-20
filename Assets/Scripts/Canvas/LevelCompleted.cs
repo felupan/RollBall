@@ -17,18 +17,14 @@ namespace Canvas
         private int stars;
         private int totalStars;
 
-        private void Awake()
-        {
-            starsText.gameObject.SetActive(false);
-            totalStarsText.gameObject.SetActive(false);
-        }
-
         private void Start()
         {
             stars = GameManager.Instance.TotalStarsOnLevel;
             totalStars = GameManager.Instance.TotalStars;
             GameManager.Instance.ResetLevelStars();
             starsText.SetText($"You collected {stars} STARS");
+            starsText.gameObject.SetActive(false);
+            totalStarsText.gameObject.SetActive(false);
             StartCoroutine(ShowLevelSummary());
         }
 

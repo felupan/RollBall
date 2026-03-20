@@ -1390,6 +1390,7 @@ MonoBehaviour:
   <CardText>k__BackingField: {fileID: 4221134923796430158}
   <gameInterface>k__BackingField: {fileID: 3260966955325360411}
   summaryPanel: {fileID: 1154535375004375199}
+  summaryBackground: {fileID: 4901873433730288917}
   textsGroup: {fileID: 9090982269410198952}
   starsGroup:
   - {fileID: 1274354362298997929}

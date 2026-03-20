@@ -30,6 +30,10 @@ namespace Canvas
         {
             yield return new WaitForSeconds(4f);
             SceneManager.LoadScene(currentLevel.scenes[0]);
+            if (!AudioManager.Instance.IsPlayingMusic())
+            {
+                AudioManager.Instance.ChangeMusic(currentLevel.levelMusic, 0.4f, 0);
+            }
         }
     }
 }

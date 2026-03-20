@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [field: SerializeField] public TMP_Text CardText { get; set; }
     [field: SerializeField] public GameObject gameInterface { get; set; }
     [SerializeField] private GameObject summaryPanel;
+    [SerializeField] private GameObject summaryBackground;
     [SerializeField] private GameObject textsGroup;
     [SerializeField] private RawImage[] starsGroup;
     [SerializeField] private TMP_Text starCounterText;
@@ -31,7 +32,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AudioClip starSound;
     [SerializeField] private AudioClip noStarSound;
     
-    private GameObject summaryBackground;
     public static UIManager Instance { get; private set; }
 
     private void Awake()
@@ -42,11 +42,6 @@ public class UIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        summaryBackground = summaryPanel.transform.Find("DarkBackground").gameObject;
     }
 
     public void ShowSummary()
