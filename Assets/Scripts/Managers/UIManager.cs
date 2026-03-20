@@ -109,14 +109,7 @@ public class UIManager : MonoBehaviour
             {
                 AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
                 yield return item.text.transform.DOPunchPosition(Vector3.up, 0.5f, 30, 3f).WaitForCompletion();
-                if (item.value <= 40)
-                {
-                    yield return StartCoroutine(ScoreEffects(item.text, item.value, 0.1f));
-                }
-                else
-                {
-                    yield return StartCoroutine(ScoreEffects2(item.text, item.value, 2f));
-                }
+                yield return FinalScoreEffect(item.text, item.value, 2f, 0.1f, 80);
             }
             else
             {
@@ -220,19 +213,23 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration)
+    private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration, float pitch, int startNumber = 0)
     {
-        float elapsed = 0f;
+        float elapsed = 0;
         float counter = 0;
     
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float progress = elapsed / duration;
-            int currentNumber = Mathf.RoundToInt(Mathf.Lerp(0, number, progress));
+            int currentNumber = Mathf.RoundToInt(Mathf.Lerp(startNumber, number, progress));
             text.SetText($"{currentNumber}");
-            float pitch = Mathf.Min(1f + progress * 0.3f, 2f);
-            if (counter % 3 == 0) AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
+            pitch = Mathf.Min(pitch + progress * 0.05f, 1.5f);
+            if (counter % 5 == 0)
+            {
+                AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
+            }
+            
             counter++;
             yield return null;
         }
@@ -240,5 +237,31 @@ public class UIManager : MonoBehaviour
         text.SetText($"{number}");
         AudioManager.Instance.PlaySfx(scoreSound,0.4f);
         yield return text.transform.DOPunchPosition(Vector3.up, 1f, 40, 3f).WaitForCompletion();
+    }
+
+    private IEnumerator FinalScoreEffect(TMP_Text text, int number, float duration, float speed, int limit)
+    {
+        float decimalPitch = 0;
+        float pitch = 1f;
+        for (int i = 0; i < number; i++)
+        {
+            if (i < limit)
+            {
+                float progress = (float)i / number;
+                float localProgress = (float)i / limit;
+                float currentSpeed = Mathf.Lerp(speed, Time.deltaTime, localProgress);
+                text.SetText($"{i}");
+                decimalPitch = localProgress * 0.15f;
+                pitch = 1f + decimalPitch;
+                
+                AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
+                yield return new WaitForSeconds(currentSpeed);
+            }
+            else
+            {
+                yield return ScoreEffects2(text, number, duration, pitch, i);
+                yield break;
+            }
+        }
     }
 }
