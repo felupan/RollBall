@@ -21,21 +21,21 @@ namespace Canvas
         {
             stars = GameManager.Instance.TotalStarsOnLevel;
             totalStars = GameManager.Instance.TotalStars;
-            GameManager.Instance.ResetLevelStars();
-            starsText.SetText($"You collected {stars} STARS");
             starsText.gameObject.SetActive(false);
             totalStarsText.gameObject.SetActive(false);
             StartCoroutine(ShowLevelSummary());
+            GameManager.Instance.ResetLevelStars();
         }
 
         private IEnumerator ShowLevelSummary()
         {
             starsText.gameObject.SetActive(true);
+            starsText.SetText($"You collected {stars} STARS");
             AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
             yield return starsText.transform.DOPunchPosition(Vector3.one, 1f, 30, 2f).WaitForCompletion();
         
             totalStarsText.gameObject.SetActive(true);
-            UIManager.Instance.ScoreEffect(starsValueText, totalStars, 0.2f);
+            starsValueText.SetText($"{totalStars}");
             yield return new WaitForSeconds(4f);
             SceneManager.LoadScene("LevelTemplate");
         }

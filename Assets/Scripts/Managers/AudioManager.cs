@@ -52,6 +52,11 @@ namespace Managers
         {
             sfxSource.pitch = pitch;
         }
+        
+        public float GetSfxPitch()
+        {
+            return sfxSource.pitch;
+        }
 
         public void ChangeMusic(AudioClip music, float volume = 1f, float fadeOutDuration = 1f, float fadeInDuration = 3f)
         {

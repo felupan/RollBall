@@ -31,6 +31,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AudioClip textAppearSound;
     [SerializeField] private AudioClip starSound;
     [SerializeField] private AudioClip noStarSound;
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip constantFireSound;
+    
+    [SerializeField] private ParticleSystem fireEffect;
+
+    private Tween shakeTween;
+    private UnityEngine.Canvas canvas;
     
     public static UIManager Instance { get; private set; }
 
@@ -42,10 +49,13 @@ public class UIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+
+        canvas = GetComponent<UnityEngine.Canvas>();
     }
 
     public void ShowSummary()
     {
+        canvas.worldCamera = GameManager.Instance.MainCamera;
         StartCoroutine(SummaryCorutine());
     }
     
@@ -109,11 +119,17 @@ public class UIManager : MonoBehaviour
             {
                 AudioManager.Instance.PlaySfx(textAppearSound, 0.5f);
                 yield return item.text.transform.DOPunchPosition(Vector3.up, 0.5f, 30, 3f).WaitForCompletion();
-                yield return FinalScoreEffect(item.text, item.value, 2f, 0.1f, 80);
+                if (item == summaryItems[summaryItems.Count - 1])
+                {
+                    yield return FinalScoreEffect(item.text, item.value, 0.1f, 50);
+                }
+                else yield return ScoreEffects(item.text, item.value, 0.1f);
             }
             else
             {
+                shakeTween?.Kill();
                 item.text.SetText("0");
+                item.text.color = Color.white;
             }
         }
     }
@@ -172,11 +188,14 @@ public class UIManager : MonoBehaviour
         yield return Fade(1.3f, 2);
         summaryBackground.SetActive(false);
         gameInterface.SetActive(true);
+        StopAllCoroutines();
     }
 
     private IEnumerator HideSummary()
     {
         yield return ShowValueTexts(false);
+        AudioManager.Instance.StopSfxLoop();
+        fireEffect.Stop();
         yield return ShowTexts(textsGroup.transform, false);
         starText.gameObject.SetActive(false);
         starCounterText.gameObject.SetActive(false);
@@ -213,7 +232,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration, float pitch, int startNumber = 0)
+    private IEnumerator ScoreEffects2(TMP_Text text, int number, float duration, float startPitch, int startNumber = 0)
     {
         float elapsed = 0;
         float counter = 0;
@@ -224,7 +243,7 @@ public class UIManager : MonoBehaviour
             float progress = elapsed / duration;
             int currentNumber = Mathf.RoundToInt(Mathf.Lerp(startNumber, number, progress));
             text.SetText($"{currentNumber}");
-            pitch = Mathf.Min(pitch + progress * 0.05f, 1.5f);
+            float pitch = Mathf.Min(startPitch + progress * 0.2f, 1.3f);
             if (counter % 5 == 0)
             {
                 AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
@@ -236,31 +255,34 @@ public class UIManager : MonoBehaviour
     
         text.SetText($"{number}");
         AudioManager.Instance.PlaySfx(scoreSound,0.4f);
-        yield return text.transform.DOPunchPosition(Vector3.up, 1f, 40, 3f).WaitForCompletion();
+        shakeTween = text.transform.DOShakePosition(0.5f, 5f, 30).SetLoops(-1);
+        
     }
 
-    private IEnumerator FinalScoreEffect(TMP_Text text, int number, float duration, float speed, int limit)
+    private IEnumerator FinalScoreEffect(TMP_Text text, int number, float speed, int limit)
     {
-        float decimalPitch = 0;
-        float pitch = 1f;
         for (int i = 0; i < number; i++)
         {
             if (i < limit)
             {
-                float progress = (float)i / number;
                 float localProgress = (float)i / limit;
-                float currentSpeed = Mathf.Lerp(speed, Time.deltaTime, localProgress);
+                float currentSpeed = Mathf.Lerp(speed, Time.deltaTime * 2, localProgress);
+                float curvedProgress = Mathf.Pow(localProgress, 3f);
+                text.color = Color.Lerp(text.color, Color.softRed, curvedProgress);
                 text.SetText($"{i}");
-                decimalPitch = localProgress * 0.15f;
-                pitch = 1f + decimalPitch;
+                float pitch = 1f + localProgress * 0.1f;
                 
                 AudioManager.Instance.PlaySfx(scoreSound,0.4f, pitch);
                 yield return new WaitForSeconds(currentSpeed);
             }
             else
             {
-                yield return ScoreEffects2(text, number, duration, pitch, i);
-                yield break;
+                AudioManager.Instance.PlaySfx(fireSound, 0.5f);
+                fireEffect.Play();
+                float duration = Mathf.Clamp((number - i) * 0.01f, Time.deltaTime, 2f);
+                yield return ScoreEffects2(text, number, duration, AudioManager.Instance.GetSfxPitch(), i);
+                AudioManager.Instance.PlaySfxLoop(constantFireSound, 0.3f);
+                break;
             }
         }
     }

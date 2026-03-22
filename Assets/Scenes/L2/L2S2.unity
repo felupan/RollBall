@@ -1868,6 +1868,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 781334258335021401, guid: 366ade627d3db4f478588c3e75ad428b, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2127102661}
     - target: {fileID: 3622574719066789523, guid: 366ade627d3db4f478588c3e75ad428b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2893,10 +2897,10 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2127102664}
   - {fileID: 891497830}
   - {fileID: 2053754328}
   - {fileID: 1635958117}
-  - {fileID: 2127102664}
   - {fileID: 2011794555}
   - {fileID: 961823884}
   - {fileID: 584764496}

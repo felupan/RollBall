@@ -141,6 +141,15 @@ public class GameManager : MonoBehaviour
     {
         TotalStarsOnLevel = 0;
     }
+
+    public void ResetAll()
+    {
+        ResetStats();
+        ResetLevelStars();
+        TotalStars = 0;
+        CurrentLevelIndex = 0;
+        currentScenarioIndex = 0;
+    }
     
     public void ResetLevel()
     {
@@ -154,9 +163,17 @@ public class GameManager : MonoBehaviour
             if (TotalStarsOnLevel >= RequiredStars)
             {
                 AudioManager.Instance.ChangeMusic(null,1f,0,0);
-                SceneManager.LoadScene("LevelPassed");
+                if (CurrentLevelIndex == Levels.Count)
+                {
+                    SceneManager.LoadScene("WinScene");
+                }
+                else SceneManager.LoadScene("LevelPassed");
             }
-            else Debug.Log("You lost!");
+            else
+            {
+                AudioManager.Instance.ChangeMusic(null,1f,0,0);
+                SceneManager.LoadScene("LostScene");
+            }
         }
         else
         {

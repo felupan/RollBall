@@ -21,14 +21,18 @@ public class BallMovePlease : MonoBehaviour
     private bool isDragging;
     private bool isOnBasket;
     private bool isGround;
+    private bool isSummary;
+    private LineRenderer lineRenderer;
 
     private float moveH;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        lineRenderer = GetComponent<LineRenderer>();
         currentPosition = transform.position;
         isOnBasket = false;
+        isSummary = false;
     }
 
     // Update is called once per frame
@@ -52,19 +56,28 @@ public class BallMovePlease : MonoBehaviour
         {
             // We check if the ball is standing on the ground
             CheckGround();
+            
+            if (GameManager.Instance.HitsLeft <= 0 && !isSummary)
+            {
+                isSummary = true;
+                isOnBasket = true;
+                GameManager.Instance.CalculateLevelScore();
+            }
         }
         else isGround = false;
     }
-
+    
     private void OnMouseDown()
     {
+        if (GameManager.Instance.HitsLeft <= 0) return;
         isDragging = true;
         currentPosition = transform.position;
+        lineRenderer.enabled = true;
     }
 
     private void OnMouseDrag()
     {
-        if (!isDragging) return;
+        if (!isDragging || GameManager.Instance.HitsLeft <= 0) return;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         
         Plane dragPlane = new Plane(mainCamera.transform.forward, currentPosition);
@@ -78,12 +91,25 @@ public class BallMovePlease : MonoBehaviour
             
             lastDragVector = dragVector;
         }
+        
+        int points = 20;
+        lineRenderer.positionCount = points;
+
+        Vector3 velocity = lastDragVector * ballForce;
+
+        for (int i = 0; i < points; i++)
+        {
+            float t = i * 0.05f;
+            Vector3 point = transform.position + velocity * t + 0.5f * (Physics.gravity * 0.4f) * t * t;
+            lineRenderer.SetPosition(i, point);
+        }
     }
 
     private void OnMouseUp()
     {
         if (!isDragging) return;
         isDragging = false;
+        lineRenderer.enabled = false;
         
         rb.AddForce(lastDragVector * ballForce, ForceMode.Impulse);
         AudioManager.Instance.PlaySfx(coilSound,0.6f);
@@ -112,6 +138,7 @@ public class BallMovePlease : MonoBehaviour
         {
             // If isOnBasket then we go to the next level + add points to the score
             isOnBasket = true;
+            isSummary = true;
             AudioManager.Instance.PlaySfx(basketSound, 0.5f);
             GameManager.Instance.CalculateLevelScore();
         }
