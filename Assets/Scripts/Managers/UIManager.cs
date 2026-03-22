@@ -200,17 +200,17 @@ namespace Managers
             if (mult == 1) yield break;
             yield return new WaitForSeconds(0.5f);
             text.SetText($"{text.text} x");
-            AudioManager.Instance.PlaySfx(textAppearSound, 0.4f, 1.05f);
+            AudioManager.Instance.PlaySfx(scoreSound, 0.4f, 1.05f);
             yield return new WaitForSeconds(0.5f);
             text.SetText($"{text.text} {mult}");
-            AudioManager.Instance.PlaySfx(textAppearSound, 0.4f, 1.1f);
+            AudioManager.Instance.PlaySfx(scoreSound, 0.4f, 1.1f);
             //SONIDO Y TWEEN
             yield return new WaitForSeconds(0.5f);
-            AudioManager.Instance.PlaySfx(textAppearSound, 0.4f, 0.5f);
-            yield return text.transform.DOPunchScale(-Vector3.one *0.1f, 1f, 5, 1f).WaitForCompletion();
+            AudioManager.Instance.PlaySfx(scoreSound, 0.4f, 0.5f);
+            yield return text.transform.DOPunchScale(-Vector3.one *0.4f, 0.2f, 5, 1f).WaitForCompletion();
             //COMPACTAR Y RESULTADO FINAL (value * mult)
             text.SetText($"{value * mult}");
-            AudioManager.Instance.PlaySfx(textAppearSound, 0.4f, 1.2f);
+            AudioManager.Instance.PlaySfx(scoreSound, 0.4f, 1.2f);
             yield return text.transform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 5, 1f).WaitForCompletion();
         }
         
