@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 public class LevelSettings : MonoBehaviour
@@ -14,8 +15,8 @@ public class LevelSettings : MonoBehaviour
         GameManager.Instance.MaxHits = maxHits;
         GameManager.Instance.TotalCoins = totalCoins;
         GameManager.Instance.CurrentCard = levelCard;
-        GameManager.Instance.MainCamera = mainCamera;
         GameManager.Instance.UsedHitsToPass = usedHitsToPass;
         GameManager.Instance.InitializeLevel();
+        UIManager.Instance.SetCamera(mainCamera);
     }
 }

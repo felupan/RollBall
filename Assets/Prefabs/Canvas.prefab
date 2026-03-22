@@ -992,7 +992,7 @@ GameObject:
   - component: {fileID: 6433760053415983309}
   - component: {fileID: 4863488909966207187}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: GameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   <HitsText>k__BackingField: {fileID: 6101045546564711061}
   <CoinText>k__BackingField: {fileID: 6621234353718780329}
   <CardText>k__BackingField: {fileID: 4221134923796430158}
-  <gameInterface>k__BackingField: {fileID: 3260966955325360411}
+  gameInterface: {fileID: 3260966955325360411}
   summaryPanel: {fileID: 1154535375004375199}
   summaryBackground: {fileID: 4901873433730288917}
   textsGroup: {fileID: 9090982269410198952}
@@ -1409,6 +1409,7 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: be02ddaea13c40a4e908f9007fed0d8e, type: 3}
   constantFireSound: {fileID: 8300000, guid: e4c2a33583187934f91e92b7c59a682d, type: 3}
   fireEffect: {fileID: 1496290202486472752}
+  cameraSummaryRotation: {x: 0.6360782, y: 0, z: 0, w: 0.7716246}
 --- !u!223 &781334258335021401
 Canvas:
   m_ObjectHideFlags: 0

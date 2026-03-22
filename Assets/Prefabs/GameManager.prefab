@@ -59,8 +59,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cc5e941d9519144581a32486e739972, type: 2}
   - {fileID: 11400000, guid: 0a29a71ede1670d4f8d8cf6b4299d19e, type: 2}
   - {fileID: 11400000, guid: cd4664b1e6b696d47aea1f28a75ba227, type: 2}
-  <MainCamera>k__BackingField: {fileID: 0}
-  cameraSummaryRotation: {x: 0.6398399, y: 0, z: 0, w: 0.76850826}
+  <Cards>k__BackingField:
+  - {fileID: 11400000, guid: 4112879390cee6942a57cf9a670fa3f0, type: 2}
+  - {fileID: 11400000, guid: cde20c418d4b6ab4dbb24b6b6ffcf859, type: 2}
+  - {fileID: 11400000, guid: be5d555a4d4de154bb9fe51d475e4f4e, type: 2}
   debugStartLevel: 0
   debugStartScene: 0
   debugStartStars: 0

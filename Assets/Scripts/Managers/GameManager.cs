@@ -27,16 +27,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentScenarioIndex;
     
     [field: SerializeField] public List<LevelData> Levels { get; private set; }
+    [field: SerializeField] public List<CardData> Cards { get; private set; }
     
     private AudioClip gameMusic;
     
     public int MaxHits { get; set; }
+    public int MaxScore { get; private set; }
     public int HitsLeft { get; private set; }
     public TypeCard CurrentCard { get; set; }
-    [field: SerializeField] public Camera MainCamera { get; set; }
-    
-    private Quaternion cameraInitialRotation;
-    [SerializeField] private Quaternion cameraSummaryRotation;
+    public CardData ActiveCard { get; private set; }
     
     [Header("Debug Settings")]
     [SerializeField] private int debugStartLevel = 0;
@@ -71,8 +70,8 @@ public class GameManager : MonoBehaviour
     public void InitializeLevel()
     {
         HitsLeft = MaxHits;
-        cameraInitialRotation = MainCamera.transform.rotation;
         RequiredStars = Levels[CurrentLevelIndex].requiredStars;
+        ActiveCard = Cards.Find(card => card.cardType == CurrentCard);
         UIManager.Instance.HitsText.SetText($"{HitsLeft}");
         UIManager.Instance.CoinText.SetText($"{CoinsPickedOnLevel}");
         UIManager.Instance.CardText.SetText($"{CurrentCard}");
@@ -91,37 +90,29 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.CoinText.SetText($"{CoinsPickedOnLevel}");
     }
 
+    public void SpendStars(int amount)
+    {
+        TotalStars -= amount;
+    }
+
     public void CalculateLevelScore()
     {
-        int coinMult = 1;
-        int hitsMult = 1;
-        int levelScoreMult = 1;
-        
-        switch (CurrentCard)
+        int coinMult = ActiveCard.coinMultPerLevel[ActiveCard.upgradeLevel];
+        int hitsMult = ActiveCard.hitsMultPerLevel[ActiveCard.upgradeLevel];
+        int scoreMult = ActiveCard.scoreMultPerLevel[ActiveCard.upgradeLevel];
+
+        if (ActiveCard.cardType == TypeCard.Balance && CoinsPickedOnLevel != HitsLeft)
         {
-            case TypeCard.Collector:
-                coinMult = 3;
-                break;
-            case TypeCard.Efficiency:
-                hitsMult = 3;
-                break;
-            case TypeCard.Balance:
-                coinMult = 2;
-                hitsMult = 2;
-                if (CoinsPickedOnLevel == HitsLeft)
-                {
-                    levelScoreMult = 5;
-                }
-                break;
+            scoreMult = 1;
         }
         
         // Calculate Stars
-        int maxScore = (TotalCoins * coinMult) * ((MaxHits - UsedHitsToPass) * hitsMult) * levelScoreMult;
-        LevelScore = (CoinsPickedOnLevel * coinMult) * (HitsLeft * hitsMult) * levelScoreMult;
-        Debug.Log($"MaxScore: {maxScore}");
-        if (LevelScore >= maxScore * 0.8f) Stars = 3;
-        else if (LevelScore >= maxScore * 0.5f) Stars = 2;
-        else if (LevelScore >= maxScore * 0.3f) Stars = 1;
+        MaxScore = (TotalCoins * coinMult) * ((MaxHits - UsedHitsToPass) * hitsMult) * scoreMult;
+        LevelScore = (CoinsPickedOnLevel * coinMult) * (HitsLeft * hitsMult) * scoreMult;
+        Debug.Log($"MaxScore: {MaxScore}");
+        if (LevelScore >= MaxScore * 0.8f) Stars = 3;
+        else if (LevelScore >= MaxScore * 0.5f) Stars = 2;
+        else if (LevelScore >= MaxScore * 0.3f) Stars = 1;
         else Stars = 0;
         TotalStarsOnLevel += Stars;
         TotalStars += Stars;
@@ -129,7 +120,7 @@ public class GameManager : MonoBehaviour
         Summary();
     }
 
-    private void ResetStats()
+    private void ResetSceneStats()
     {
         CoinsPickedOnLevel = 0;
         UsedHitsOnLevel = 0;
@@ -144,16 +135,20 @@ public class GameManager : MonoBehaviour
 
     public void ResetAll()
     {
-        ResetStats();
+        ResetSceneStats();
         ResetLevelStars();
         TotalStars = 0;
         CurrentLevelIndex = 0;
         currentScenarioIndex = 0;
+        foreach (CardData card in Cards)
+        {
+            card.upgradeLevel = 0;
+        }
     }
     
     public void ResetLevel()
     {
-        ResetStats();
+        ResetSceneStats();
         currentScenarioIndex++;
         if (currentScenarioIndex >= Levels[CurrentLevelIndex].scenes.Length)
         {
@@ -178,35 +173,12 @@ public class GameManager : MonoBehaviour
         else
         {
             SceneManager.LoadScene(Levels[CurrentLevelIndex].scenes[currentScenarioIndex]);
-            EndSummary();
         }
         
     }
 
     private void Summary()
     {
-        UIManager.Instance.gameInterface.SetActive(false);
         UIManager.Instance.ShowSummary();
-        StartCoroutine(RotateCamera(1.4f, cameraInitialRotation, cameraSummaryRotation));
-    }
-
-    private IEnumerator RotateCamera(float duration, Quaternion initialRotation, Quaternion endRotation)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float tSmooth = Mathf.SmoothStep(0f, 1f, t); 
-            MainCamera.transform.rotation = Quaternion.Slerp(initialRotation, endRotation, tSmooth);
-            yield return null;
-        }
-        MainCamera.transform.rotation = endRotation;
-    }
-    
-    private void EndSummary()
-    {
-        StartCoroutine(RotateCamera(1.4f, cameraSummaryRotation, cameraInitialRotation));
     }
 }

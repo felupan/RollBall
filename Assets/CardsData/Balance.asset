@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e13f1ee0bca4c4a82a380147b7e922, type: 3}
+  m_Name: Balance
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  cardName: Balance
+  cardType: 2
+  coinMultPerLevel: 02000000030000000400000004000000
+  hitsMultPerLevel: 02000000030000000400000004000000
+  scoreMultPerLevel: 04000000060000000800000009000000
+  upgradeCostPerLevel: 020000000300000004000000
+  upgradeLevel: 0

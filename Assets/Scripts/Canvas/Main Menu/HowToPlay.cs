@@ -29,7 +29,9 @@ namespace Canvas.Main_Menu
             "In each scenario you can get from 3 to 0 STARS",
             "This are needed to pass the LEVEL",
             "The higher your score, more STARS",
-            "You get to chose a Potential Card that will BONUS your stats",
+            "Every LEVEL has it Potencial Card",
+            "They will grant you a bonus score",
+            "Use the STARS to upgrade your Potencial Cards",
             "Get the specified STARS to pass the LEVEL",
         };
         

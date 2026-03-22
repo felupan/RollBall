@@ -37,7 +37,7 @@ namespace Canvas
             totalStarsText.gameObject.SetActive(true);
             starsValueText.SetText($"{totalStars}");
             yield return new WaitForSeconds(4f);
-            SceneManager.LoadScene("LevelTemplate");
+            SceneManager.LoadScene("ShopScene");
         }
     }
 }
